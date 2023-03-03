@@ -60,22 +60,22 @@ class Authenticator(dns_common.DNSAuthenticator):
         self, domain: str, validation_name: str, validation: str
     ) -> None:
         self._get_easydns_client().add_txt_record(
-            domain, validation_name, validation, self.ttl
+            domain, validation_name, validation
         )
 
     def _cleanup(
         self, domain: str, validation_name: str, validation: str
     ) -> None:
         self._get_easydns_client().del_txt_record(
-            domain, validation_name, validation, self.ttl
+            domain, validation_name, validation
         )
 
     def _get_easydns_client(self) -> "_EasyDNSLexiconClient":
         if not self.credentials:
             raise errors.Error("Plugin could not obtain credentials.")
         return _EasyDNSLexiconClient(
-            self.credentials.conf("username"),
-            self.credentials.conf("password"),
+            self.credentials.conf("usertoken"),
+            self.credentials.conf("userkey"),
             self.credentials.conf("endpoint"),
             self.ttl,
         )
@@ -97,8 +97,8 @@ class _EasyDNSLexiconClient(dns_common_lexicon.LexiconClient):
         super().__init__()
         self.endpoint = endpoint or EASYDNS_REST
         self.ttl = ttl or 60
-        self.usertoken = username
-        self.userkey = password
+        self.usertoken = usertoken
+        self.userkey = userkey
         config = dns_common_lexicon.build_lexicon_config(
             "easydns",
             {"ttl": self.ttl},
