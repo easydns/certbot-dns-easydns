@@ -33,7 +33,8 @@ Installation
 
 ::
 
-    pip install certbot-dns-easydns
+   pip install certbot
+   pip install certbot-dns-easydns
 
 
 Named Arguments
@@ -42,19 +43,16 @@ Named Arguments
 To start using DNS authentication for EasyDNS, pass the following arguments on
 certbot's command line:
 
-============================================================= ==============================================
-``--authenticator certbot-dns-easydns:dns-easydns``           select the authenticator plugin (Required)
+===================================== ==============================================
+``--authenticator dns-easydns``       select the authenticator plugin (Required)
 
-``--certbot-dns-easydns:dns-easydns-credentials``             EasyDNS Remote User credentials
-                                                              INI file. (Required)
+``--dns-easydns-credentials``         EasyDNS Remote User credentials
+                                       INI file (Required)
 
-``--certbot-dns-easydns:dns-easydns-propagation-seconds``     | waiting time for DNS to propagate before asking
-                                                              | the ACME server to verify the DNS record.
-                                                              | (Default: 120, Recommended: >= 600)
-============================================================= ==============================================
-
-(Note that the verbose and seemingly redundant ``certbot-dns-easydns:`` prefix
-is currently imposed by certbot for external plugins.)
+``--dns-easydns-propagation-seconds`` waiting time for DNS to propagate before asking
+                                       the ACME server to verify the DNS record
+                                      (Default: 120, Recommended: >= 600)
+===================================== ==============================================
 
 
 Credentials
@@ -64,31 +62,36 @@ An example ``credentials.ini`` file:
 
 .. code-block:: ini
 
-   certbot_dns_easydns:dns_easydns_usertoken = myremoteuser
-   certbot_dns_easydns:dns_easydns_userkey = verysecureremoteuserpassword
-   certbot_dns_easydns:dns_easydns_endpoint = https://rest.easydns.net
+   dns_easydns_usertoken = myremoteuser
+   dns_easydns_userkey = verysecureremoteuserpassword
+   dns_easydns_endpoint = https://rest.easydns.net
 
 
 The path to this file can be provided interactively or using the
 ``--certbot-dns-easydns:dns-easydns-credentials`` command-line
 argument. Certbot records the path to this file for use during
-renewal, but does not store the file's contents.  Please note that
-providing the endpoint is required, though it is currently always the
-same; this is for forward compatibility.
+renewal, but does not store the file's contents.
 
-**CAUTION:** You should protect these API credentials as you would the
-password to your EasyDNS account. Users who can read this file can use these
-credentials to issue arbitrary API calls on your behalf. Users who can cause
-Certbot to run using these credentials can complete a ``dns-01`` challenge to
-acquire new certificates or revoke existing certificates for associated
-domains, even if those domains aren't being managed by this server.
+.. note::
 
-Certbot will emit a warning if it detects that the credentials file can be
-accessed by other users on your system. The warning reads "Unsafe permissions
-on credentials configuration file", followed by the path to the credentials
-file. This warning will be emitted each time Certbot uses the credentials file,
-including for renewal, and cannot be silenced except by addressing the issue
-(e.g., by using a command like ``chmod 600`` to restrict access to the file).
+   Please note that providing the endpoint is required, though it is
+   currently always the same; this is for forward compatibility.
+
+.. caution::
+
+   You should protect these API credentials as you would the
+   password to your EasyDNS account. Users who can read this file can use these
+   credentials to issue arbitrary API calls on your behalf. Users who can cause
+   Certbot to run using these credentials can complete a ``dns-01`` challenge to
+   acquire new certificates or revoke existing certificates for associated
+   domains, even if those domains aren't being managed by this server.
+
+   Certbot will emit a warning if it detects that the credentials file can be
+   accessed by other users on your system. The warning reads "Unsafe permissions
+   on credentials configuration file", followed by the path to the credentials
+   file. This warning will be emitted each time Certbot uses the credentials file,
+   including for renewal, and cannot be silenced except by addressing the issue
+   (e.g., by using a command like ``chmod 600`` to restrict access to the file).
 
 
 Examples
@@ -100,9 +103,9 @@ To acquire a single certificate for both ``example.com`` and
 .. code-block:: bash
 
    certbot certonly \
-     --authenticator certbot-dns-easydns:dns-easydns \
-     --certbot-dns-easydns:dns-easydns-credentials /etc/letsencrypt/.secrets/domain.tld.ini \
-     --certbot-dns-easydns:dns-easydns-propagation-seconds 900 \
+     --authenticator dns-easydns \
+     --dns-easydns-credentials /etc/letsencrypt/.secrets/domain.tld.ini \
+     --dns-easydns-propagation-seconds 900 \
      --server https://acme-v02.api.letsencrypt.org/directory \
      --agree-tos \
      --rsa-key-size 4096 \
@@ -132,9 +135,9 @@ Once that's finished, the application can be run as follows::
        -v /etc/letsencrypt:/etc/letsencrypt \
        --cap-drop=all \
        certbot/dns-easydns certonly \
-       --authenticator certbot-dns-easydns:dns-easydns \
-       --certbot-dns-easydns:dns-easydns-propagation-seconds 900 \
-       --certbot-dns-easydns:dns-easydns-credentials \
+       --authenticator dns-easydns \
+       --dns-easydns-propagation-seconds 900 \
+       --dns-easydns-credentials \
            /etc/letsencrypt/.secrets/domain.tld.ini \
        --no-self-upgrade \
        --keep-until-expiring --non-interactive --expand \

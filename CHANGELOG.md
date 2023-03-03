@@ -7,3 +7,7 @@ Change notes for certbot-dns-easydns
 	- Requires that EasyDNS is the DNS provider for the domain to be
       used.  Customers may register to receive access to the REST API
       which is required for this Authenticator to work.
+
+### v0.1.1: Documentation Improvements
+	- Updated example commandlines to match reality.
+	- Some reformatting of README.rst
