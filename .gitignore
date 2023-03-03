@@ -1,0 +1,6 @@
+*~
+venv
+.venv
+*.egg-info
+credentials*.ini
+__pycache__
