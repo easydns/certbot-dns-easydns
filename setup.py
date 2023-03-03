@@ -19,7 +19,15 @@ install_requires = [
     "certbot>=0.34.0",
     "setuptools",
     "dns-lexicon",
-    "mock",
+]
+
+docs_extras = [
+    "sphinx",
+    "sphinx-rtd-theme",
+]
+
+test_extras = [
+    "pytest",
 ]
 
 # read the contents of your README file
