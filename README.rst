@@ -22,10 +22,8 @@ then never again; be ready to copy it and stuff it into some sort
 of protected datastore.  Both must be used together to authenticate
 with the API.  See below about how to create a file for the credentials.
 
-It is possible to direct the endpoint, but the default is for the
-plugin to use the production API endpoint.  The sandbox endpoint does
-not create actual changes to DNS, and so cannot be used to issue
-certificates.
+It is possible to direct the endpoint, but currently there is only ever
+one correct value: ``https://rest.easydns.net``
 
 .. _EasyDNS: https://www.easydns.com/
 .. _certbot: https://certbot.eff.org/
@@ -68,12 +66,15 @@ An example ``credentials.ini`` file:
 
    certbot_dns_easydns:dns_easydns_usertoken = myremoteuser
    certbot_dns_easydns:dns_easydns_userkey = verysecureremoteuserpassword
+   certbot_dns_easydns:dns_easydns_endpoint = https://rest.easydns.net
 
 
 The path to this file can be provided interactively or using the
-``--certbot-dns-easydns:dns-easydns-credentials`` command-line argument. Certbot
-records the path to this file for use during renewal, but does not store the
-file's contents.
+``--certbot-dns-easydns:dns-easydns-credentials`` command-line
+argument. Certbot records the path to this file for use during
+renewal, but does not store the file's contents.  Please note that
+providing the endpoint is required, though it is currently always the
+same; this is for forward compatibility.
 
 **CAUTION:** You should protect these API credentials as you would the
 password to your EasyDNS account. Users who can read this file can use these

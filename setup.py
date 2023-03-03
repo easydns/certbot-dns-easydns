@@ -10,7 +10,7 @@ if mo:
     version = mo.group(1)
 else:
     raise RuntimeError(f"Unable to find version string in {VERSIONFILE}")
-with open("README.md", "r") as fh:
+with open("README.rst", "r") as fh:
     long_description = fh.read()
 
 
