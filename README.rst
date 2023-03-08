@@ -49,9 +49,9 @@ certbot's command line:
 ``--dns-easydns-credentials``         EasyDNS Remote User credentials
                                        INI file (Required)
 
-``--dns-easydns-propagation-seconds`` waiting time for DNS to propagate before asking
-                                       the ACME server to verify the DNS record
-                                      (Default: 120, Recommended: >= 600)
+``--dns-easydns-propagation-seconds`` | waiting time for DNS to propagate before asking
+                                      |  the ACME server to verify the DNS record
+                                      | (Default: 120, Recommended: >= 600)
 ===================================== ==============================================
 
 
