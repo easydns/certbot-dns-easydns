@@ -58,6 +58,14 @@ certbot's command line:
 Credentials
 -----------
 
+Credentials for access to the EasyDNS REST API are required in order
+for this plugin to work.  The credentials are stored in a separate INI
+file which should have mode 0600 for security (see below).  The file
+is often stored in a location such as ``/root/.secrets`` or
+``/etc/letsencrypt/.secrets`` and perhaps named for the authenticator,
+e.g. ``/root/.secrets/easydns.ini``.  Henceforth we shall refer to
+this file as ``credentials.ini``.
+
 An example ``credentials.ini`` file:
 
 .. code-block:: ini
@@ -67,10 +75,23 @@ An example ``credentials.ini`` file:
    dns_easydns_endpoint = https://rest.easydns.net
 
 
-The path to this file can be provided interactively or using the
-``--certbot-dns-easydns:dns-easydns-credentials`` command-line
-argument. Certbot records the path to this file for use during
-renewal, but does not store the file's contents.
+The full path to this file can be provided interactively or by using
+the ``--dns-easydns-credentials`` command-line argument; that value
+appears in the ``domain.conf`` which Certbot creates to describe the
+domain which is the subject of the cert.  Certbot records the absolute
+path to this file for use during renewal, but does not store the
+file's contents.
+
+The ``domain.conf`` file is created by ``certbot`` if it is not
+present, when the SSL cert is first provisioned by running the
+``certbot certonly`` command (example below).  If the
+``--dns-easydns-credentials`` option is used, the resulting
+``domain.conf`` file should reflect the location provided without any
+need for editing by the user.  However, if the credentials file
+changes locations, then the ``domain.conf`` file will need to be
+updated to reflect the new location.  It is worthy of note that in the
+``domain.conf`` file, the parameter uses underscores in place of
+hyphens.
 
 .. note::
 
