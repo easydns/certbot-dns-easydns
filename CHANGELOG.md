@@ -11,3 +11,7 @@ Change notes for certbot-dns-easydns
 ### v0.1.1: Documentation Improvements
 	- Updated example commandlines to match reality.
 	- Some reformatting of README.rst
+
+### v0.1.2: More Documentation Improvements
+    - Corrected inline command-line argument example.
+	- Enhanced documentation around creation and specification of the credentials file.
