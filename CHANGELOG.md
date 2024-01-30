@@ -15,3 +15,6 @@ Change notes for certbot-dns-easydns
 ### v0.1.2: More Documentation Improvements
     - Corrected inline command-line argument example.
 	- Enhanced documentation around creation and specification of the credentials file.
+
+### v0.1.3: Correct typo in Docker example
+    - There was a typo in the Docker compose example; it has been corrected

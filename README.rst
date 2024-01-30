@@ -142,7 +142,7 @@ create an empty directory with the following ``Dockerfile``:
 
 .. code-block:: docker
 
-    FROM certbot/certbotb
+    FROM certbot/certbot
     RUN pip install certbot-dns-easydns
 
 Proceed to build the image::
