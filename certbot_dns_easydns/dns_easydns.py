@@ -113,7 +113,9 @@ class _EasyDNSLexiconClient(dns_common_lexicon.LexiconClient):
     def _handle_http_error(
         self, e: HTTPError, domain_name: str
     ) -> Optional[errors.PluginError]:
-        if domain_name in str(e) and str(e).startswith("404 "):
+        if domain_name in str(e) and (
+            str(e).startswith("404 ") or str(e).startswith("400 ")
+        ):
             return None
         hint = ""
         if str(e).startswith("403 "):
